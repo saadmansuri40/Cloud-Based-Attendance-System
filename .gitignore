@@ -1,0 +1,22 @@
+# Frontend
+frontend/node_modules/
+frontend/dist/
+frontend/npm-debug.log*
+frontend/yarn-debug.log*
+frontend/yarn-error.log*
+
+# Backend
+backend/venv/
+backend/__pycache__/
+backend/*.pyc
+backend/app.log
+backend/.env
+
+# Databases & Media (optional, depends on preference, but good to ignore so we don't commit big datasets or faces)
+backend/captured_faces/
+backend/registered_faces/
+backend/*.json
+
+# OS files
+.DS_Store
+Thumbs.db

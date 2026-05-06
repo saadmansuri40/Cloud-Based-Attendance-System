@@ -1,0 +1,10 @@
+deepface
+tf-keras
+azure-core
+azure-ai-vision-face
+flask
+flask-cors
+opencv-python-headless
+numpy
+requests
+gunicorn
