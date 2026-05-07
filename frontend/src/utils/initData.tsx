@@ -11,15 +11,15 @@ const dummyUsers: (User | Student)[] = [
   },
   {
     id: '1',
-    name: 'John Smith',
-    email: 'john@teacher.com',
+    name: 'abdul kalam',
+    email: 'abdulkalam@teacher.com',
     password: 'teacher123',
     role: 'teacher',
   },
   {
     id: '2',
-    name: 'Alice Johnson',
-    email: 'alice@student.com',
+    name: 'saad mansuri',
+    email: 'saadmansuri@student.com',
     password: 'student123',
     role: 'student',
     isFirstLogin: true,
@@ -42,7 +42,7 @@ const dummyAssignments: Assignment[] = [
     subject: 'Data Structures & Algorithms',
     sections: ['CSE', 'IT'],
     dueDate: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toISOString().split('T')[0], // 7 days from now
-    postedBy: 'John Smith',
+    postedBy: 'abdul kalam',
     postedAt: new Date(Date.now() - 2 * 24 * 60 * 60 * 1000).toISOString(), // posted 2 days ago
   },
   {
@@ -55,7 +55,7 @@ const dummyAssignments: Assignment[] = [
     subject: 'Mathematics',
     sections: ['CSE', 'ECE', 'IT', 'EE'],
     dueDate: new Date(Date.now() + 3 * 24 * 60 * 60 * 1000).toISOString().split('T')[0], // 3 days from now
-    postedBy: 'John Smith',
+    postedBy: 'abdul kalam',
     postedAt: new Date(Date.now() - 1 * 24 * 60 * 60 * 1000).toISOString(), // posted 1 day ago
   },
   {
@@ -69,18 +69,19 @@ const dummyAssignments: Assignment[] = [
     subject: 'Operating Systems',
     sections: ['CSE'],
     dueDate: new Date(Date.now() - 1 * 24 * 60 * 60 * 1000).toISOString().split('T')[0], // 1 day overdue
-    postedBy: 'John Smith',
+    postedBy: 'abdul kalam',
     postedAt: new Date(Date.now() - 14 * 24 * 60 * 60 * 1000).toISOString(),
   },
 ];
 
 // ── Init ───────────────────────────────────────────────────────────────────────
 export const initializeLocalStorage = () => {
-  const isInitialized = localStorage.getItem('appInitialized');
-  const users = JSON.parse(localStorage.getItem('users') || '[]');
-  const demoStudent = users.find((u: any) => u.email === 'alice@student.com');
-  const adminUser = users.find((u: any) => u.email === 'admin@system.com');
-  const needsReseed = !isInitialized || (demoStudent && !demoStudent.enrollmentNo) || !adminUser;
+  try {
+    const isInitialized = localStorage.getItem('appInitialized_v3');
+    const users = JSON.parse(localStorage.getItem('users') || '[]');
+    const demoStudent = users.find((u: any) => u.email === 'saadmansuri@student.com');
+    const adminUser = users.find((u: any) => u.email === 'admin@system.com');
+    const needsReseed = !isInitialized || (demoStudent && !demoStudent.enrollmentNo) || !adminUser;
 
   if (needsReseed) {
     localStorage.clear();
@@ -90,7 +91,7 @@ export const initializeLocalStorage = () => {
     localStorage.setItem('assignments', JSON.stringify(dummyAssignments));
     localStorage.setItem('submissions', JSON.stringify([]));
     localStorage.setItem('adminNotifications', JSON.stringify([]));
-    localStorage.setItem('appInitialized', 'true');
+    localStorage.setItem('appInitialized_v3', 'true');
     console.log('Local storage initialized with dummy data + demo assignments.');
   } else {
     // Ensure assignments key always exists even for old sessions
@@ -100,5 +101,11 @@ export const initializeLocalStorage = () => {
     if (!localStorage.getItem('submissions')) {
       localStorage.setItem('submissions', JSON.stringify([]));
     }
+  }
+  } catch (e) {
+    console.error("Failed to parse localStorage. Resetting...", e);
+    localStorage.clear();
+    localStorage.setItem('appInitialized_v3', 'true');
+    localStorage.setItem('users', JSON.stringify(dummyUsers));
   }
 };

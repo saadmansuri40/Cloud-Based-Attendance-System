@@ -11,7 +11,11 @@ interface AvatarPickerProps {
 function getStorageKey(userId: string) { return `dp_${userId}`; }
 
 export function getAvatar(userId: string): string | null {
-    return localStorage.getItem(getStorageKey(userId));
+    const cached = localStorage.getItem(getStorageKey(userId));
+    if (cached) return cached;
+    // Default image for Saad Mansuri (ID '2')
+    if (userId === '2') return '/saad_profile.jpg';
+    return null;
 }
 
 export default function AvatarPicker({ userId, name, size = 'lg', onAvatarChange }: AvatarPickerProps) {

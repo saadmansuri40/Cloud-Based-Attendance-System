@@ -15,9 +15,14 @@ const App = () => {
     initializeLocalStorage();
 
     // Load the current user from localStorage if available
-    const savedUser = localStorage.getItem('currentUser');
-    if (savedUser) {
-      setCurrentUser(JSON.parse(savedUser));
+    try {
+      const savedUser = localStorage.getItem('currentUser');
+      if (savedUser && savedUser !== 'undefined') {
+        setCurrentUser(JSON.parse(savedUser));
+      }
+    } catch (e) {
+      console.error(e);
+      localStorage.removeItem('currentUser');
     }
   }, []);
 
@@ -102,8 +107,8 @@ const App = () => {
                 <h3 className="font-semibold mb-2">Demo Accounts:</h3>
                 <div className="space-y-2">
                   <p><strong>Admin:</strong> admin@system.com / admin123</p>
-                  <p><strong>Teacher:</strong> john@teacher.com / teacher123</p>
-                  <p><strong>Student:</strong> 22CSE0001 / student123</p>
+                  <p><strong>Teacher (Abdul Kalam):</strong> abdulkalam@teacher.com / teacher123</p>
+                  <p><strong>Student (Saad Mansuri):</strong> 22CSE0001 / student123</p>
                 </div>
               </div>
             </div>

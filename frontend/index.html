@@ -5,6 +5,11 @@
     <link rel="icon" href="data:," />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Student Attendance System</title>
+    <script>
+      if (window.location.protocol === 'file:') {
+        alert('WARNING: React applications cannot be opened directly from the file system. Please run "npm run dev" in your terminal and open localhost.');
+      }
+    </script>
   </head>
   <body>
     <div id="root"></div>
